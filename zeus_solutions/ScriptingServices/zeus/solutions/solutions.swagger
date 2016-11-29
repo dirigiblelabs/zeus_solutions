@@ -1,0 +1,259 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Zeus_solutions Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Zeus_solutions'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Zeus_solutions",
+         "description":"View and manage Zeus_solutions objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/solutions/solutions.js": {
+            "get": {
+            	"tags":[
+               		"Zeus_solutions"
+            	],
+                "description": "Gets 'Zeus_solutions' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "sol_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_solutions' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Zeus_solutions' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_solutions"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Zeus_solutions"
+            	],
+                "description": "Creates a new 'Zeus_solutions' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_solutions object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_solutions"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_solutions"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Zeus_solutions"
+            	],
+                "description": "Updates an existing 'Zeus_solutions' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_solutions object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_solutions"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_solutions"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Zeus_solutions"
+            	],
+                "description": "Deletes 'Zeus_solutions' objects.\n",
+                "parameters": [
+                    {
+                        "name": "sol_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_solutions' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_solutions"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Zeus_solutions": {
+	        "type":"object",
+	        "properties": {
+        		"sol_id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"sol_name": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_description": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_date": {
+	            	"type": 
+        "number"
+	    		}
+				,
+        		"sol_area": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_in_scope": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_out_scope": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_key_deliverables": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_targets": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_timeline": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_teams": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_financials": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_constraints": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_risks": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"sol_created_at": {
+	            	"type": 
+        "number"
+	    		}
+				,
+        		"sol_created_by": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

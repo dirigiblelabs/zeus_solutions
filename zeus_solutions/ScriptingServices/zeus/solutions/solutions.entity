@@ -1,0 +1,15 @@
+{
+  "entityName":"Zeus_solutions",
+  "tableName":"ZEUS_SOLUTIONS",
+  "tableType":"TABLE",
+  "serviceName":"solutions.js",
+  "libraryName":"solutions_lib.js",
+  "specification":"solutions.swagger",
+  "getEnabled":"true",
+  "postEnabled":"true",
+  "putEnabled":"true",
+  "deleteEnabled":"true",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}
