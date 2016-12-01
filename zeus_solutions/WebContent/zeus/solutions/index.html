@@ -9,8 +9,8 @@
 
 <title>Solutions</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 <style>
 .selected-true {
 	color: #428bca;
@@ -30,7 +30,7 @@
   }
 </style>
 </head>
-<body>
+<body style="margin-left: 20px">
 
 	<div id="wrap" ng-controller="ManageController">
 		<div class="row">
@@ -40,43 +40,28 @@
 		</div>
 		<div class="container">
 			<div class="alert alert-danger" ng-show="errorMessage">{{errorMessage}}</div>
+			<div class="alert alert-success alert-dismissible" ng-show="successMessage">{{successMessage}}</div>
 			<!-- entities table -->
 			<table class="table table-condensed">
 				<thead>
 					<tr>
-						<th>#</th>
 						<th>Name</th>
 						<th>Description</th>
 						<th>Date</th>
 						<th>Area</th>
-						<th>In Scope</th>
-						<th>Out of Scope</th>
-						<th>Key Deliverables</th>
-						<th>Targets</th>
-						<th>Timelines</th>
 						<th>Teams</th>
 						<th>Financials</th>
-						<th>Constraints</th>
-						<th>Risks</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="selected-{{entry._selected_}}" ng-repeat="entry in data"
 						ng-click="showInfoForEntry(entry)">
-						<td>{{entry.sol_id}}</td>
-						<td>{{entry.sol_name}}</td>
+						<td nowrap><i class="fa fa-industry"></i> {{entry.sol_name}}</td>
 						<td>{{entry.sol_description}}</td>
 						<td>{{entry.sol_date | date:format}}</td>
 						<td>{{entry.sol_area}}</td>
-						<td>{{entry.sol_in_scope}}</td>
-						<td>{{entry.sol_out_scope}}</td>
-						<td>{{entry.sol_key_deliverables}}</td>
-						<td>{{entry.sol_targets}}</td>
-						<td>{{entry.sol_timeline}}</td>
 						<td>{{entry.sol_teams}}</td>
 						<td>{{entry.sol_financials}}</td>
-						<td>{{entry.sol_constraints}}</td>
-						<td>{{entry.sol_risks}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -88,23 +73,31 @@
 			<br>
 			<!-- new, edit and delete buttons -->
 			<div class="btn-group">
-				<input class="btn btn-default" type="button" value="New"
+				<input class="btn btn-default btn-sm" type="button" value="New"
 					ng-click="setOperation('new')"
-					ng-disabled="errorMessage || operation == 'new' || operation == 'update'"> <input
-					class="btn btn-default" type="button" value="Edit"
+					ng-disabled="errorMessage || operation == 'new' || operation == 'update'">
+				<input
+					class="btn btn-default btn-sm" type="button" value="Edit"
 					ng-click="setOperation('update')"
-					ng-disabled="errorMessage || operation == 'new' || operation == 'update'"> <input
-					class="btn btn-default" type="button" value="Delete"
+					ng-disabled="errorMessage || operation == 'new' || operation == 'update'">
+				<input
+					class="btn btn-default btn-sm" type="button" value="Delete"
 					ng-click="delete()"
 					ng-disabled="errorMessage || operation == 'new' || operation == 'update'">
+			</div>
+			<div class="btn-group">
+				<input
+					class="btn btn-primary btn-sm" type="button" value="Generate Project"
+					ng-click="generateProject()"
+					ng-disabled="!selectedEntry">
 			</div>
 			<br>
 			<br>
 			<div>
 				<!-- input form -->
 				<div>
-					<label>#</label>
-					<input type="text" class="form-control" 
+					
+					<input type="hidden" class="form-control" 
 						ng-model="selectedEntry.sol_id" readonly> <br>
 					<br>
 					<label>Name</label>
@@ -113,9 +106,9 @@
 						ng-readonly="operation == 'show'" required="required">
 					<br>
 					<label>Description</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_description"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Date</label>
 					<p class="input-group">
@@ -134,34 +127,34 @@
 						ng-readonly="operation == 'show'" required="required">
 					<br>
 					<label>In Scope</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_in_scope"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Out of Scope</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_out_scope"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Key Deliverables</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_key_deliverables"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Targets</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_targets"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Timelines</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_timeline"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Teams</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_teams"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Financials</label>
 					<input type="text" class="form-control" 
@@ -169,22 +162,22 @@
 						ng-readonly="operation == 'show'" required="required">
 					<br>
 					<label>Constraints</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_constraints"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 					<label>Risks</label>
-					<input type="text" class="form-control" 
+					<textarea class="form-control" 
 						ng-model="selectedEntry.sol_risks"
-						ng-readonly="operation == 'show'" required="required">
+						ng-readonly="operation == 'show'" required="required"></textarea>
 					<br>
 				</div>
 				
 				<!-- save and cancel buttons -->
 				<div class="btn-group">
-					<input class="btn btn-primary" type="button" value="Save" ng-show="operation == 'new' || operation == 'update'"
+					<input class="btn btn-primary btn-sm" type="button" value="Save" ng-show="operation == 'new' || operation == 'update'"
 						ng-click="confirmAction()"> 
-					<input class="btn btn-default" type="button" value="Cancel" ng-show="operation == 'new' || operation == 'update'"
+					<input class="btn btn-default btn-sm" type="button" value="Cancel" ng-show="operation == 'new' || operation == 'update'"
 						ng-click="cancelAction()">
 				</div>
 			</div>
@@ -200,7 +193,8 @@
 		angular.module('page', ['ngAnimate', 'ui.bootstrap']);
 		angular.module('page').controller('ManageController', function ($scope, $http) {
 			
-			var url = '../../js/zeus/solutions/solutions.js';
+			var url = '../../../js/zeus/solutions/solutions.js';
+			var urlProject = '../../../js/zeus/projects/projects.js';
 
 			$http.get(url)
 				.success(function(data){
@@ -391,6 +385,20 @@
 			  	$scope.itemsPerPage = num;
 			  	$scope.setPage(1);
 			}
+			
+			$scope.generateProject = function() {
+				var project = {};
+				project.project_name = $scope.selectedEntry.sol_name;
+				project.project_sol_id = $scope.selectedEntry.sol_id;
+				$http.post(urlProject, project)
+				.success(function(){
+                    $scope.successMessage = "Project has beeen generated successfuly.";
+				})
+				.error(function(response){
+					$scope.errorMessage = response.err.message;
+				});
+			}
+
 		});
 		
 	</script>
