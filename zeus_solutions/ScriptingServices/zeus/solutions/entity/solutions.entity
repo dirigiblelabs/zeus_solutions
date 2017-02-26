@@ -3,7 +3,7 @@
   "tableName":"ZEUS_SOLUTIONS",
   "tableType":"TABLE",
   "serviceName":"solutions.js",
-  "libraryName":"solutions_lib.js",
+  "libraryName":"solutionsDao.js",
   "specification":"solutions.swagger",
   "getEnabled":"true",
   "postEnabled":"true",

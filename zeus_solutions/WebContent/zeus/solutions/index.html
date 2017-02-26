@@ -26,47 +26,28 @@
 		</div>
 		<div class="container">
 			<div class="alert alert-danger" ng-show="errorMessage">{{errorMessage}}</div>
+			<div class="alert alert-success alert-dismissible" ng-show="successMessage">{{successMessage}}</div>
 			<!-- entities table -->
 			<table class="table table-condensed">
 				<thead>
 					<tr>
-						<th>#</th>
 						<th>Name</th>
 						<th>Description</th>
 						<th>Date</th>
 						<th>Area</th>
-						<th>In Scope</th>
-						<th>Out of Scope</th>
-						<th>Key Deliverables</th>
-						<th>Targets</th>
-						<th>Timeline</th>
 						<th>Teams</th>
 						<th>Financials</th>
-						<th>Constraints</th>
-						<th>Risks</th>
-						<th>SOL_CREATED_AT</th>
-						<th>SOL_CREATED_BY</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="selected-{{entry._selected_}}" ng-repeat="entry in data"
 						ng-click="showInfoForEntry(entry)">
-						<td>{{entry.sol_id}}</td>
-						<td>{{entry.sol_name}}</td>
+						<td nowrap><i class="fa fa-industry"></i> {{entry.sol_name}}</td>
 						<td>{{entry.sol_description}}</td>
 						<td>{{entry.sol_date | date:format}}</td>
 						<td>{{entry.sol_area}}</td>
-						<td>{{entry.sol_in_scope}}</td>
-						<td>{{entry.sol_out_scope}}</td>
-						<td>{{entry.sol_key_deliverables}}</td>
-						<td>{{entry.sol_targets}}</td>
-						<td>{{entry.sol_timeline}}</td>
 						<td>{{entry.sol_teams}}</td>
 						<td>{{entry.sol_financials}}</td>
-						<td>{{entry.sol_constraints}}</td>
-						<td>{{entry.sol_risks}}</td>
-						<td>{{entry.sol_created_at}}</td>
-						<td>{{entry.sol_created_by}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -78,15 +59,20 @@
 			<br>
 			<!-- new, edit and delete buttons -->
 			<div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<input class="btn btn-default" type="button" value="New"
+				<input class="btn btn-default btn-sm" type="button" value="New"
 					ng-click="setOperation('new')"
 					ng-disabled="errorMessage || operation == 'new' || operation == 'update'"> <input
-					class="btn btn-default" type="button" value="Edit"
+					class="btn btn-default btn-sm" type="button" value="Edit"
 					ng-click="setOperation('update')"
 					ng-disabled="errorMessage || operation == 'new' || operation == 'update'"> <input
-					class="btn btn-default" type="button" value="Delete"
+					class="btn btn-default btn-sm" type="button" value="Delete"
 					ng-click="delete()"
 					ng-disabled="errorMessage || operation == 'new' || operation == 'update'">
+					
+					<input
+ 					class="btn btn-primary btn-sm" type="button" value="Generate Project"
+ 					ng-click="generateProject()"
+ 					ng-disabled="!selectedEntry">
 			</div>
 			<br><br><br>
 			<div>
@@ -182,26 +168,14 @@
 						ng-model="selectedEntry.sol_risks" cols="50" rows="5" 
 						ng-readonly="operation == 'show'" required="required"></textarea>
 				  </div>
-				  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-					<label>SOL_CREATED_AT</label>
-					<input type="text" class="form-control" 
-						ng-model="selectedEntry.sol_created_at"
-						ng-readonly="operation == 'show'" required="required">
-				  </div>
-				  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<label>SOL_CREATED_BY</label>
-					<input type="text" class="form-control" 
-						ng-model="selectedEntry.sol_created_by"
-						ng-readonly="operation == 'show'" required="required">
-				  </div>
 				</div>
 				
 				<!-- save and cancel buttons -->
 				<div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<br>
-					<input class="btn btn-primary" type="button" value="Save" ng-show="operation == 'new' || operation == 'update'"
+					<input class="btn btn-primary btn-sm" type="button" value="Save" ng-show="operation == 'new' || operation == 'update'"
 						ng-click="confirmAction()"> 
-					<input class="btn btn-default" type="button" value="Cancel" ng-show="operation == 'new' || operation == 'update'"
+					<input class="btn btn-default btn-sm" type="button" value="Cancel" ng-show="operation == 'new' || operation == 'update'"
 						ng-click="cancelAction()">
 				</div>
 			</div>
@@ -217,7 +191,8 @@
 		angular.module('page', ['ngAnimate', 'ui.bootstrap']);
 		angular.module('page').controller('ManageController', function ($scope, $http) {
 			
-			var url = '../../js/zeus_solutions//solutions.js';
+			var url = '../../../js/zeus/solutions//solutions.js';
+			var urlProject = '../../../js/zeus/projects/projects.js';
 
 			$http.get(url)
 				.success(function(data){
@@ -417,7 +392,21 @@
 			$scope.setItemsPerPage = function(num) {
 			  	$scope.itemsPerPage = num;
 			  	$scope.setPage(1);
-			}
+			};
+			
+			$scope.generateProject = function() {
+ 				var project = {};
+ 				project.project_name = $scope.selectedEntry.sol_name;
+ 				project.project_sol_id = $scope.selectedEntry.sol_id;
+ 				$http.post(urlProject, project)
+ 				.success(function(){
+                     $scope.successMessage = "Project has beeen generated successfuly.";
+ 				})
+ 				.error(function(response){
+ 					$scope.errorMessage = response.err.message;
+ 				});
+ 			};
+ 
 		});
 		
 	</script>
