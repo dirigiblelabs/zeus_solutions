@@ -3,8 +3,7 @@
 
 var database = require('db/database');
 var datasource = database.getDatasource();
-var solutionsDaoExtensionsUtils = require('zeus/solutions/solutionsDaoExtensionUtils');
-var user = require("net/http/user");
+var solutionsDaoExtensionsUtils = require('zeus_solutions/utils/solutionsDaoExtensionUtils');
 
 // Create an entity
 exports.create = function(entity) {
@@ -33,8 +32,13 @@ exports.create = function(entity) {
         statement.setString(++i, entity.sol_financials);
         statement.setString(++i, entity.sol_constraints);
         statement.setString(++i, entity.sol_risks);
-        statement.setTimestamp(++i, new Date());
-        statement.setString(++i, user.getName());
+        if (entity.sol_created_at !== null) {
+            var js_date_sol_created_at =  new Date(Date.parse(entity.sol_created_at));
+            statement.setTimestamp(++i, js_date_sol_created_at);
+        } else {
+            statement.setTimestamp(++i, null);
+        }
+        statement.setString(++i, entity.sol_created_by);
 		solutionsDaoExtensionsUtils.beforeCreate(connection, entity);
         statement.executeUpdate();
         solutionsDaoExtensionsUtils.afterCreate(connection, entity);
@@ -97,7 +101,7 @@ exports.list = function(limit, offset, sort, desc) {
 exports.update = function(entity) {
     var connection = datasource.getConnection();
     try {
-        var sql = 'UPDATE ZEUS_SOLUTIONS SET SOL_NAME = ?,SOL_DESCRIPTION = ?,SOL_DATE = ?,SOL_AREA = ?,SOL_IN_SCOPE = ?,SOL_OUT_SCOPE = ?,SOL_KEY_DELIVERABLES = ?,SOL_TARGETS = ?,SOL_TIMELINE = ?,SOL_TEAMS = ?,SOL_FINANCIALS = ?,SOL_CONSTRAINTS = ?,SOL_RISKS = ? WHERE SOL_ID = ?';
+        var sql = 'UPDATE ZEUS_SOLUTIONS SET   SOL_NAME = ?, SOL_DESCRIPTION = ?, SOL_DATE = ?, SOL_AREA = ?, SOL_IN_SCOPE = ?, SOL_OUT_SCOPE = ?, SOL_KEY_DELIVERABLES = ?, SOL_TARGETS = ?, SOL_TIMELINE = ?, SOL_TEAMS = ?, SOL_FINANCIALS = ?, SOL_CONSTRAINTS = ?, SOL_RISKS = ?, SOL_CREATED_AT = ?, SOL_CREATED_BY = ? WHERE SOL_ID = ?';
         var statement = connection.prepareStatement(sql);
         var i = 0;
         statement.setString(++i, entity.sol_name);
@@ -118,8 +122,14 @@ exports.update = function(entity) {
         statement.setString(++i, entity.sol_financials);
         statement.setString(++i, entity.sol_constraints);
         statement.setString(++i, entity.sol_risks);
-        var id = entity.sol_id;
-        statement.setInt(++i, id);
+        if (entity.sol_created_at !== null) {
+            var js_date_sol_created_at =  new Date(Date.parse(entity.sol_created_at));
+            statement.setTimestamp(++i, js_date_sol_created_at);
+        } else {
+            statement.setTimestamp(++i, null);
+        }
+        statement.setString(++i, entity.sol_created_by);
+        statement.setInt(++i, entity.sol_id);
 		solutionsDaoExtensionsUtils.beforeUpdate(connection, entity);
         statement.executeUpdate();
         solutionsDaoExtensionsUtils.afterUpdate(connection, entity);

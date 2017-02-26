@@ -13,7 +13,7 @@
       }
     ],
     "paths": {
-        "/js/zeus/solutions/solutions.js": {
+        "/js/zeus_solutions/solutions.js": {
             "get": {
             	"tags":[
                		"Zeus_solutions"
