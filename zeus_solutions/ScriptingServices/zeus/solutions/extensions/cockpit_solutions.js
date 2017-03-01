@@ -2,7 +2,7 @@
 /* eslint-env node, dirigible */
 
 const PATH = "/solutions";
-const HTML_LINK = "../../zeus/solutions/index.html";
+const HTML_LINK = "../solutions/index.html";
 
 //exports.getMenuItem = function() {
 //	return {  
@@ -16,6 +16,8 @@ exports.getSidebarItem = function() {
 	return {  
       "name": "Solutions",
       "path": PATH,
-      "link": HTML_LINK
+      "link": HTML_LINK,
+      "category": "Define",
+      "order": 102
    };
 };
